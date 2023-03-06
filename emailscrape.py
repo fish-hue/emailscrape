@@ -9,11 +9,11 @@ response = requests.get(url)
 content = response.content.decode()
 
 # use regular expression to extract email addresses from website content
-email_pattern = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
+email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}(?<!\.png)(?<!\.jpg)\b'
 emails = set(re.findall(email_pattern, content))
 
 # loop through all links on website to find more email addresses
-link_pattern = r'<a\s+(?:[^>]*?\s+)?href="([^"]*)"'
+link_pattern = r'<a\s+(?:[^>]*?\s+)?href="([^"]*(?<!\.jpg)(?<!\.png))"'
 links = re.findall(link_pattern, content)
 
 for link in links:
